@@ -226,7 +226,7 @@ Az alábbi példák bemutatják, hogyan használhatók a **mechTikz** parancsai 
 | <a href="examples/2_truss_structre.tex"><img src="examples/2_truss_structre.png" width="400"></a> | **Rácsos tartó (Truss Structure)** |
 | <a href="examples/3_1_hinged_structre.tex"><img src="examples/3_1_hinged_structre.png" width="300"></a> | **Csuklós szerkezet (Hinged Structure)** |
 | <a href="examples/3_2_hinged_structure_fbd.tex"><img src="examples/3_2_hinged_structure_fbd.png" width="300"></a> | **Csuklós szerkezet SZTÁ-ja (Hinged Structure FBD)** |
-| <a href="examples/3_3_hinged_structre_parts.tex"><img src="examples/3_3_hinged_structre_parts.png" width="500"></a> | **Csuklós szerkezet részeinek vizsgálata (Hinged Structure Decomposed)** |
+| <a href="examples/3_3_hinged_structre_parts.tex"><img src="examples/3_3_hinged_structre_parts.png" width="400"></a> | **Csuklós szerkezet részeinek vizsgálata (Hinged Structure Decomposed)** |
 
 
 
