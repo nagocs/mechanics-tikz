@@ -233,6 +233,15 @@ Az alábbi példák bemutatják, hogyan használhatók a **mechTikz** parancsai 
 💡 **Tipp:**  
 A példák `.tex` fájljai közvetlenül futtathatók a `standalone.tex` fájllal, így minden ábra külön PDF-fájlként exportálható.
 
+## További források
+
+Ha szeretnél mélyebben megismerkedni a **TikZ** használatával, az alábbi forrásokat ajánlom figyelmedbe. Ezek között találsz rövid összefoglalókat, részletes dokumentációt és gyakorlati útmutatókat is.
+- [**TikZ Cheat Sheet (PDF)**](https://static.latexstudio.net/wp-content/uploads/2014/01/TikZcheatsheet.pdf) – tömör, jól áttekinthető parancs-összefoglaló  
+- [**TikZ.dev**](https://tikz.dev/) – a TikZ és PGF hivatalos online dokumentációja  
+- [**PGF csomag a CTAN-on**](https://ctan.org/pkg/pgf) – a legfrissebb verzió és teljes referencia  
+- [**Overleaf Tutorial (Part 1)**](https://www.overleaf.com/learn/latex/LaTeX_Graphics_using_TikZ%3A_A_Tutorial_for_Beginners_(Part_1)%E2%80%94Basic_Drawing) – gyakorlati bevezetés kezdőknek  
+- [**TikZ.dev Tutorial**](https://tikz.dev/tutorial) – rövid útmutató a TikZ alapjaihoz  
+- [**AMS TikZ Tutorial (PDF)**](https://www.ams.org/arc/resources/pdfs/tikz_tutorials_all-brown.pdf) – részletes oktatóanyag matematikai példákkal  
 
 ## Licenc
 
