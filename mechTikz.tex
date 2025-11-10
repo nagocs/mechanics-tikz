@@ -1,0 +1,172 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% mechTikz - Rúd szerkezetek rajzolása TikZ segítségével
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% --------------------------------------------------
+% Alapstílusok
+% --------------------------------------------------
+% Definiáljuk a gyakran használt TikZ stílusokat
+% (pl. pontok, rudak, erővektorok, stb.)
+
+\tikzset{
+  point/.style = {circle,fill=black,inner sep = 1.5pt},
+  link/.style = {color=#1, very thick},
+  angle/.style={color=#1,<->, >=latex},
+  vec/.style = {color=#1,very thick,-latex},
+  arc vec/.style={color=#1,very thick, postaction={decorate}, decoration={markings,mark=at position 1 with {\arrow{>}}}},
+  arc vec2/.style={color=#1,very thick, postaction={decorate}, decoration={markings,mark=at position 1 with {\arrow{<}}}},
+  force/.style = {color=#1, very thick,-latex},
+  moment/.style = {color=#1,very thick,-Implies, double distance=1pt},
+  coordSys/.style = {color=#1, thin,-latex},
+  guide/.style = {color=#1,thin},
+  guideVec/.style = {color=#1,latex-latex},
+  construct/.style = {color=#1,thick,dashed},
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Saját TikZ parancsok definiálása
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Ezek a parancsok új "rajzelemeket" hoznak létre, 
+% amiket később egyszerűen, rövid paranccsal hívhatunk 
+% meg rajzolás közben (pl. \supporthinge{A}{0}).
+
+% --------------------------------------------------
+% Általános elemek
+% --------------------------------------------------
+
+% Távolságjelölő makró
+\newcommand{\dimarrow}[7][]{%
+  % #1: opcionális TikZ stílus (pl. color=red, thick, stb.)
+  % #2: első pont
+  % #3: második pont
+  % #4: eltolás vektor 1 (pl. (0,-1.25) vagy (1,0))
+  % #5: eltolás vektor 2 (pl. (0,-1.25) vagy (1,0))
+  % #6: felirat a nyíl közepén
+  % #7: felirat pozíció (pl. below, above, left, right)
+  \begin{scope}[#1]
+    % vezető vonalak
+    \draw[guide={gray}] ($(#2)+#4$) -- (#2);
+    \draw[guide={gray}] ($(#3)+#5$) -- (#3);
+    % távolság nyíl felirattal
+    \draw[guideVec={gray}] ($(#2)+#4$) -- node[midway, #7] {#6} ($(#3)+#5$);
+  \end{scope}
+}
+
+% Kis koordinátarendszer megrajzolása
+\newcommand{\coordSys}[2][]{%
+  % #1: opcionális paraméter (pl. scale=1.2, draw=blue, stb.)
+  % #2: csomópont koordinátája (pl. (2,3))
+  \begin{scope}[shift={(#2)}, #1]
+    % x tengely
+    \draw[coordSys={red}] (-0.5,0) -- (0.5,0) node[right] {$x$};
+    % y tengely
+    \draw[coordSys={red}] (0,-0.5) -- (0,0.5) node[above] {$y$};
+  \end{scope}
+}
+
+% --------------------------------------------------
+% Mechanikai elemek
+% --------------------------------------------------
+
+% Csuklós alátámasztás + ground
+\newcommand{\supporthinge}[3][]{%
+  % #1: opcionális paraméter (pl. scale=1.2, draw=blue, stb.)
+  % #2: csomópont koordinátája
+  % #3: forgatási szög fokban
+  \begin{scope}[shift={(#2)}, rotate=#3, #1]
+    % Talaj
+    \fill[gray!20!white] (-0.5,-0.5) rectangle (0.5,-0.75);
+    \draw[black, very thick] (-0.5,-0.5) -- (0.5,-0.5);
+    % Háromszög
+    \draw[support] (0,0) -- (-0.25,-0.5) -- (0.25,-0.5) -- cycle;
+    \fill[white, draw={black}] (0,0) circle (0.1cm);
+  \end{scope}
+}
+
+% Görgős alátámasztás + ground
+\newcommand{\supportroller}[3][]{%
+  % #1: opcionális paraméter
+  % #2: csomópont koordinátája
+  % #3: forgatási szög fokban
+  \begin{scope}[shift={(#2)}, rotate=#3, #1]
+    % Talaj
+    \fill[gray!20!white] (-0.5,-0.5) rectangle (0.5,-0.75);
+    \draw[black, very thick] (-0.5,-0.5) -- (0.5,-0.5);
+    % Háromszög + görgők
+    \draw[support] (0,0) -- (-0.25,-0.35) -- (0.25,-0.35) -- cycle;
+    \foreach \i in {-0.15,0,0.15} {
+      \draw[support] (\i,-0.425) circle (0.075);
+    }
+    \fill[white, draw={black}] (0,0) circle (0.1cm);
+  \end{scope}
+}
+
+% Befogás
+\newcommand{\supportfixed}[3][]{%
+  % #1: opcionális paraméter (pl. line width, color, stb.)
+  % #2: csomópont koordinátája
+  % #3: forgatási szög fokban
+  \begin{scope}[shift={(#2)}, rotate=#3, #1]
+    % Talaj (befogás jelölés)
+    \fill[gray!20!white] (-0.5,0) rectangle (0.5,-0.5);
+    \draw[black, very thick] (-0.5,0) -- (0.5,0);
+  \end{scope}
+}
+
+% Csúszka
+\newcommand{\supportslider}[4][]{%
+  % #1: opcionális paraméter (pl. line width, color, stb.)
+  % #2: csomópont koordinátája
+  % #3: forgatási szög fokban
+  % #4: sín szélessége (alapértelmezett: 1)
+  \begin{scope}[shift={(#2)}, rotate=#3, #1]
+    % Felső sín
+    \fill[gray!20!white] (-0.75,#4/2) rectangle (0.75,#4/2+0.25);
+    \draw[black, very thick] (-0.75,#4/2) -- (0.75,#4/2);
+    % Alsó sín
+    \fill[gray!20!white] (-0.75,-#4/2) rectangle (0.75,-#4/2-0.25);
+    \draw[black, very thick] (-0.75,-#4/2) -- (0.75,-#4/2);
+  \end{scope}
+}
+
+% Kötél kényszer
+\newcommand{\supportrope}[4][]{%
+  % #1: opcionális paraméter (pl. scale, color, stb.)
+  % #2: csomópont koordinátája
+  % #3: forgatási szög fokban (pl. ha nem függőleges kábelt akarsz)
+  \begin{scope}[shift={(#2)}, rotate=#3, #1]
+    % Talaj (felfogatási pont)
+    \fill[gray!20!white] (-0.5,-#4-0.25) rectangle (0.5,-#4-0.5);
+    \draw[black, very thick] (-0.5,-#4-0.25) -- (0.5,-#4-0.25); 
+    % Kötél
+    \draw[black, thick, densely dashed] (0,0) -- (0,-#4-0.25);
+    % Pontok
+    \fill[black] (0,-#4-0.25) circle (0.05); % alsó pont
+    \fill[black] (0,0) circle (0.05);        % felső pont
+  \end{scope}
+}
+
+% Sima támasz + ground
+\newcommand{\supportsimple}[3][]{%
+  % #1: opcionális paraméter (pl. scale=1.2, draw=blue, stb.)
+  % #2: csomópont koordinátája
+  % #3: forgatási szög fokban
+  \begin{scope}[shift={(#2)}, rotate=#3, #1]
+    % Talaj
+    \fill[gray!20!white] (-0.5,-0.5) rectangle (0.5,-0.75);
+    \draw[black, very thick] (-0.5,-0.5) -- (0.5,-0.5);
+    % Félkör támasz
+    \draw[support] (0.25,-0.25) arc[start angle=0, end angle=180, radius=0.25];
+    % Oldalsó vonalak a félkörhöz
+    \draw[support] (-0.25,-0.25) -- (-0.25,-0.5) (0.25,-0.5) -- (0.25,-0.25) -- cycle;
+  \end{scope}
+}
+
+% Csukló
+\newcommand{\hinge}[2][]{%
+  % #1: opcionális paraméter (pl. scale=1.2, draw=blue, stb.)
+  % #2: csomópont koordinátája
+  \begin{scope}[shift={(#2)}, #1]
+    \fill[white, draw={black}] (0,0) circle (0.1cm);
+  \end{scope}
+}
