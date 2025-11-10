@@ -1,0 +1,40 @@
+\begin{tikzpicture}
+
+    \def\a{1}
+    \def\b{1.5}
+    \def\c{2}
+
+    % Coordinates
+    \coordinate (A) at (0,0);
+    \coordinate (B) at (\a,0);
+    \coordinate (C) at (\a+\b,0);
+    \coordinate (D) at (\a+\b+\c,0);
+
+    % Guides
+    \dimarrow{A}{B}{(0,-1)}{(0,-1)}{$L_1$}{below}
+    \dimarrow{B}{C}{(0,-1)}{(0,-1)}{$L_2$}{below}
+    \dimarrow{C}{D}{(0,-1)}{(0,-1)}{$L_3$}{below}
+    
+    % Body
+    \draw[link={black}] (A) -- (B) -- (C) -- (D);
+
+    % Constraints
+    \supporthinge{A}{0}
+    \supportroller{C}{0}
+
+    % Loads
+    \draw[link={blue}, fill={blue}, fill opacity=0.2] (B) -- ($(B)+(0,0.5)$) -- ($(D)+(0,0.5)$) -- (D);
+    \draw[force={blue}] ($(C)+(-0.75,0.5)$) -- ($(C)+(-0.75,0)$) node[midway, right] {$p$};
+    \draw[force={red}] ($(D)+(1,0)$) -- (D) node[midway, above] {$F_2$};
+    \draw[force={red}] ($(D)+(0,-1)$) -- (D) node[midway, right] {$F_1$};
+    \draw[moment={red}] (C) -- ($(C)+(1,0)$) node[at end, above] {$M_2$};
+    \draw[moment={red}] (A) -- ($(A)+(-1,0)$) node[at end, above] {$M_2$};
+    \draw[arc vec={red}] (A) circle[radius=0.35] node[below right=0.2cm] {$M_1$};
+  
+    % Labels
+    \node[below=0.25em, xshift=-0.5cm, fill=white, inner sep=1pt] at (A) {$A$};
+    \node[below=0.25em, fill=white, inner sep=1pt] at (B) {$B$};
+    \node[below left=0.25em, xshift=-0.25cm, fill=white, inner sep=1pt] at (C) {$C$};
+    \node[below left=0.25em, fill=white, inner sep=1pt] at (D) {$D$};
+
+\end{tikzpicture}

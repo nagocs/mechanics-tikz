@@ -1,0 +1,30 @@
+\documentclass[tikz, border=5mm, ]{standalone}
+
+% --------------------------------------------------
+% Csomagok és könyvtárak
+% --------------------------------------------------
+\usepackage{tikz}
+\usetikzlibrary{math} % matematikai számítások Tikz-ben
+\usetikzlibrary{calc} % geometriai számítások (pl. koordináták)
+\usetikzlibrary{angles} % szögjelölések rajzolása
+\usetikzlibrary{quotes} % címkék és feliratok egyszerű kezelése
+\usetikzlibrary{arrows.meta} % nyílstílusok
+\usetikzlibrary{decorations.markings} % díszítések
+
+% --------------------------------------------------
+% mechTikz stílusok és parancsok
+% --------------------------------------------------
+\input{mechTikz.tex}
+
+% --------------------------------------------------
+% Dokumentum kezdete
+% --------------------------------------------------
+\begin{document}
+
+\input{examples/1_simply_supported_beam.tex}
+%\input{examples/2_truss_structre.tex}
+%\input{examples/3_1_hinged_structre.tex}
+%\input{examples/3_2_hinged_structure_fbd.tex}
+%\input{examples/3_3_hinged_structre_parts.tex}
+
+\end{document}

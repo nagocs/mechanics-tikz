@@ -1,0 +1,38 @@
+\begin{tikzpicture}
+
+    \def\a{1}
+
+    % Coordinates
+    \coordinate (A) at (0,0);
+    \coordinate (B) at (4*\a,0);
+    \coordinate (C) at (\a,3*\a);
+    \coordinate (F1) at ($2/3*(A)+1/3*(C)$);
+    \coordinate (F2) at ($2/3*(C)+1/3*(B)$);
+
+    %Coordinate system
+    \coordSys{-1,2}
+    
+    % Body
+    \draw[link={black}] (A) -- (C) -- (B);
+
+    % Constraints
+    \hinge{A}
+    \hinge{B}
+    \hinge{C}
+
+    % Loads
+    \draw[vec={red}] ($(F1)+(-1,0)$) -- (F1) node[midway, above] {$F_1$};
+    \draw[vec={red}] ($(F2)+(0,1)$) -- (F2) node[midway, right] {$F_2$};
+
+    % Reaction forces
+    \draw[vec={orange}] ($(A)+(-1,0)$) -- (A) node[at start, above] {$A_x$};
+    \draw[vec={orange}] ($(A)+(0,-1)$) -- (A) node[midway, left] {$A_y$};
+    \draw[vec={orange}] ($(B)+(-1,0)$) -- (B) node[at start, above] {$B_x$};
+    \draw[vec={orange}] ($(B)+(0,-1)$) -- (B) node[midway, left] {$B_y$};
+
+    % Labels
+    \node[above left] at (A) {$A$};
+    \node[above=0.25em] at (B) {$B$};
+    \node[above=0.25em] at (C) {$C$};
+
+\end{tikzpicture}

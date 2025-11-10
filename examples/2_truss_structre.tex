@@ -1,0 +1,50 @@
+\begin{tikzpicture}
+
+    \def\a{2}
+
+    % Coordinates
+    \coordinate (A) at (0,0);
+    \coordinate (B) at (4*\a,0);
+    \coordinate (C) at (\a,\a);
+    \coordinate (D) at (3*\a,\a);
+    \coordinate (E) at (\a,0);
+    \coordinate (F) at (2*\a,0);
+    \coordinate (G) at (3*\a,0);
+
+    %Coordinate system
+    \draw[coordSys={red}] ($(A)+(-0.5,0)$) -- ($(A)+(4*\a+0.5,0)$) node[above] {$x$};
+    \draw[coordSys={red}] ($(A)+(0,-0.5)$) -- ($(A)+(0,\a+0.5)$) node[left] {$y$};
+
+    % Guides
+    \dimarrow{A}{E}{(0,-1)}{(0,-1)}{$a$}{above}
+    \dimarrow{E}{F}{(0,-1)}{(0,-1)}{$a$}{above}
+    \dimarrow{F}{G}{(0,-1)}{(0,-1)}{$a$}{above}
+    \dimarrow{G}{B}{(0,-1)}{(0,-1)}{$a$}{above}
+    \dimarrow{A}{C}{(0, 0)}{(-\a,0)}{$a$}{left}
+    
+    % Body
+    \draw[link={black}] (A) -- (E) -- (F) -- (G) -- (B) -- (D) -- (C) -- cycle;
+    \draw[link={black}] (E) -- (C) -- (F);
+    \draw[link={black}] (F) -- (D) -- (G);
+
+    % Constraints
+    \supporthinge{A}{0}
+    \supportroller{B}{0}
+    \foreach \point in {C,D,E,F,G} {
+        \hinge{\point}
+    }
+
+    % Loads
+    \draw[vec={red}] ($(C)+(0,1)$) -- (C) node[midway, right] {$F_1$};
+    \draw[vec={red}] ($(D)+(1,0)$) -- (D) node[at start, below] {$F_2$};
+    
+    % Labels
+    \node[above left] at (A) {$A$};
+    \node[above=0.25em] at (B) {$B$};
+    \node[above left] at (C) {$C$};
+    \node[above right] at (D) {$D$};
+    \node[below=0.3em, fill=white] at (E) {$E$};
+    \node[below=0.3em, fill=white] at (F) {$F$};
+    \node[below=0.3em, fill=white] at (G) {$G$};
+
+\end{tikzpicture}
